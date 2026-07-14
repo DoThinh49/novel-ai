@@ -346,7 +346,7 @@ export default function ProjectWorkspacePage() {
 
   return (
     <AppShell>
-      <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
         {/* ================= LEFT CHAPTERS PANEL ================= */}
         <div
           style={{

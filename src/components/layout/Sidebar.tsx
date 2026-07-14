@@ -15,8 +15,10 @@ import {
   Sun,
   PanelLeftClose,
   PanelLeft,
+  Users,
 } from 'lucide-react';
 import { useSidebarStore, useThemeStore } from '@/lib/store';
+import { useSession, signOut } from 'next-auth/react';
 
 const navItems = [
   {
@@ -46,6 +48,18 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { isOpen, toggle } = useSidebarStore();
   const { theme, toggleTheme } = useThemeStore();
+  const { data: session, status } = useSession();
+
+  // Xây dựng danh sách menu động dựa trên vai trò người dùng
+  const visibleNavGroups = [...navItems];
+  if (session?.user && (session.user as any).role === 'ADMIN') {
+    visibleNavGroups.push({
+      group: 'Quản trị',
+      items: [
+        { href: '/admin/users', label: 'Quản lý thành viên', icon: Users },
+      ],
+    });
+  }
 
   return (
     <>
@@ -118,25 +132,25 @@ export default function Sidebar() {
                   color: 'var(--color-text-muted)',
                   letterSpacing: '0.05em',
                   textTransform: 'uppercase',
-                }}
-              >
-                Sáng tác bằng AI
+                  }}
+                >
+                  Sáng tác bằng AI
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
 
-          <button
-            className="btn btn-icon btn-ghost"
-            onClick={toggle}
-            aria-label="Toggle sidebar"
-          >
-            <PanelLeftClose size={18} />
-          </button>
-        </div>
+            <button
+              className="btn btn-icon btn-ghost"
+              onClick={toggle}
+              aria-label="Toggle sidebar"
+            >
+              <PanelLeftClose size={18} />
+            </button>
+          </div>
 
-        {/* Navigation */}
-        <nav style={{ flex: 1, padding: '1rem 0.75rem', overflowY: 'auto' }}>
-          {navItems.map((group) => (
+          {/* Navigation */}
+          <nav style={{ flex: 1, padding: '1rem 0.75rem', overflowY: 'auto' }}>
+            {visibleNavGroups.map((group) => (
             <div key={group.group} style={{ marginBottom: '1.5rem' }}>
               <div
                 style={{
@@ -208,31 +222,89 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        {/* Footer: Theme toggle */}
+        {/* Footer: User profile and Theme toggle */}
         <div
           style={{
             padding: '1rem 1.25rem',
             borderTop: '1px solid var(--color-border)',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
+            gap: '0.75rem',
           }}
         >
-          <span
+          {status === 'authenticated' && session?.user && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.5rem 0',
+              }}
+            >
+              <div style={{ overflow: 'hidden', marginRight: '0.5rem' }}>
+                <div
+                  style={{
+                    fontSize: '0.8125rem',
+                    fontWeight: 600,
+                    color: 'var(--color-text-primary)',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {session.user.name || 'Người dùng'}
+                </div>
+                <div
+                  style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--color-text-muted)',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {session.user.email}
+                </div>
+              </div>
+              <button
+                className="btn btn-ghost"
+                onClick={() => signOut({ callbackUrl: '/login' })}
+                style={{
+                  fontSize: '0.75rem',
+                  padding: '0.25rem 0.5rem',
+                  color: '#f87171',
+                  border: '1px solid rgba(248, 113, 113, 0.2)',
+                  borderRadius: 'var(--radius-sm)',
+                }}
+              >
+                Thoát
+              </button>
+            </div>
+          )}
+
+          <div
             style={{
-              fontSize: '0.8125rem',
-              color: 'var(--color-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}
           >
-            {theme === 'dark' ? 'Giao diện Tối' : 'Giao diện Sáng'}
-          </span>
-          <button
-            className="btn btn-icon btn-ghost"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+            <span
+              style={{
+                fontSize: '0.8125rem',
+                color: 'var(--color-text-muted)',
+              }}
+            >
+              {theme === 'dark' ? 'Giao diện Tối' : 'Giao diện Sáng'}
+            </span>
+            <button
+              className="btn btn-icon btn-ghost"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </div>
         </div>
 
         {/* AI sparkle decoration */}

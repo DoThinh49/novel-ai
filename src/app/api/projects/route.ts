@@ -1,16 +1,32 @@
 // ============================================================
 // API Route: Projects CRUD
-// GET    /api/projects       — List all projects
-// POST   /api/projects       — Create new project
+// GET    /api/projects       — List all projects of current user
+// POST   /api/projects       — Create new project for current user
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
-// GET — List all projects
+// GET — List projects of current user
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const userId = (session.user as any).id;
+
     const projects = await prisma.project.findMany({
+      where: {
+        userId: userId,
+      },
       orderBy: { updatedAt: 'desc' },
       include: {
         _count: {
@@ -54,6 +70,16 @@ export async function GET() {
 // POST — Create new project
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const userId = (session.user as any).id;
     const body = await request.json();
     const { title, genre, hashtags, writingStyle } = body;
 
@@ -64,6 +90,7 @@ export async function POST(request: NextRequest) {
         hashtags: JSON.stringify(hashtags || []),
         writingStyle: writingStyle || '',
         status: 'draft',
+        userId: userId,
       },
     });
 

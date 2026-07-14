@@ -96,7 +96,7 @@ export default function FreeWritePage() {
 
   return (
     <AppShell>
-      <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
         {/* ================= CENTRAL WRITER WORKSPACE ================= */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--color-bg-primary)' }}>
           {/* Header Bar */}

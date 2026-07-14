@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AuthProvider from "@/components/common/AuthProvider";
 
 export const metadata: Metadata = {
   title: "NovelAI Studio — Nền tảng Sáng tác Tiểu thuyết bằng AI",
@@ -22,7 +23,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        {/* Ảnh nền Anime mờ nghệ thuật phía sau */}
+        <div 
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundImage: "url('/bg-novel.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.15,
+            filter: 'blur(3px)',
+            pointerEvents: 'none',
+            zIndex: -10,
+          }}
+        />
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

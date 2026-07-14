@@ -127,7 +127,7 @@ export default function SettingsPage() {
                       </span>
                     ) : (
                       <span className="badge badge-error" style={{ fontSize: '0.6875rem' }}>
-                        Chưa thiết lập (Sử dụng ENV mặc định)
+                        Chưa thiết lập (Sử dụng API mặc định của hệ thống)
                       </span>
                     )}
                   </div>
@@ -141,7 +141,7 @@ export default function SettingsPage() {
                   />
                   <p style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', marginTop: '0.5rem', lineHeight: 1.5 }}>
                     <Info size={12} style={{ display: 'inline', marginRight: '0.25rem', verticalAlign: 'middle' }} />
-                    Khóa API Key này sẽ được mã hóa và lưu trực tiếp trong SQLite database cục bộ của bạn, có mức ưu tiên cao hơn biến môi trường `.env`.
+                    Khóa API Key này sẽ được mã hóa và lưu trực tiếp trong hệ thống tài khoản của bạn để phục vụ việc sáng tác truyện. Nếu khóa API mặc định của hệ thống không hoạt động hoặc hết lượt dùng, bạn hãy tự nhập và lưu khóa API cá nhân của mình tại đây để tiếp tục sử dụng.
                   </p>
                 </div>
 
@@ -171,42 +171,7 @@ export default function SettingsPage() {
               </form>
             </div>
 
-            {/* Database & Technical Info Card */}
-            <div className="card" style={{ backgroundColor: 'var(--color-bg-card)' }}>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.125rem',
-                  fontWeight: 700,
-                  marginBottom: '1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  color: 'var(--color-text-primary)',
-                }}
-              >
-                <Database size={18} style={{ color: 'var(--color-accent-light)' }} /> Thông tin kỹ thuật hệ thống
-              </h2>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Hệ quản trị Cơ sở dữ liệu:</span>
-                  <span style={{ fontWeight: 600 }}>SQLite (qua Prisma ORM)</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Mô hình AI mặc định:</span>
-                  <span style={{ fontWeight: 600 }}>gemini-2.5-flash (200k tokens input, 8k tokens output)</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Môi trường triển khai:</span>
-                  <span style={{ fontWeight: 600 }}>Localhost Development Mode</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--color-text-secondary)' }}>Trọng tâm đồ án:</span>
-                  <span style={{ fontWeight: 600, color: 'var(--color-accent-light)' }}>Xây dựng nền tảng sáng tác văn bản tự động và ngữ cảnh sâu</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
         )}
       </div>
