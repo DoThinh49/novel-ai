@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// Project — Dự án truyện
+// ============================================================
+model Project {
+  id                  String    @id @default(cuid())
+  title               String    @default("")
+  genre               String    @default("")
+  hashtags            String    @default("[]") // JSON array stored as string for SQLite
+  writingStyle        String    @default("")
+  status              String    @default("draft") // draft | in_progress | completed
+  contextMode         String    @default("summary") // full | summary | sliding_window
+  contextChapterCount Int       @default(5)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  // Relations
+  chapters      Chapter[]
+  characters    Character[]
+  outline       Outline?
+  worldBuilding WorldBuilding?
+}
+
+// ============================================================
+// Chapter — Chương truyện
+// ============================================================
+model Chapter {
+  id            String   @id @default(cuid())
+  projectId     String
+  chapterNumber Int
+  title         String   @default("")
+  content       String   @default("") // Full chapter text
+  summary       String   @default("") // Auto-generated summary for context mode
+  status        String   @default("pending") // pending | writing | completed
+  createdAt     DateTime @default(now())
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, chapterNumber])
+}
+
+// ============================================================
+// Character — Nhân vật
+// ============================================================
+model Character {
+  id          String @id @default(cuid())
+  projectId   String
+  name        String @default("")
+  role        String @default("main") // main | supporting
+  description String @default("")
+  backstory   String @default("")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Outline — Dàn ý truyện
+// ============================================================
+model Outline {
+  id               String @id @default(cuid())
+  projectId        String @unique
+  fullOutline      String @default("") // Full outline text
+  chapterOutlines  String @default("[]") // JSON array: [{chapterNumber, title, summary}]
+  userRequirements String @default("")
+  totalChapters    Int    @default(20)
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// WorldBuilding — Thế giới quan
+// ============================================================
+model WorldBuilding {
+  id               String @id @default(cuid())
+  projectId        String @unique
+  worldDescription String @default("")
+  coreIdea         String @default("")
+  settings         String @default("{}") // JSON object stored as string
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// SystemSetting — Cài đặt hệ thống
+// ============================================================
+model SystemSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @default("")
+  updatedAt DateTime @updatedAt
+}
