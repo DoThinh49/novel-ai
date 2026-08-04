@@ -177,7 +177,7 @@ export default function AdminUsersPage() {
   );
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto", spaceY: "1.5rem" }}>
+    <div className="space-y-6" style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
       
       {/* Header */}
       <div style={{ marginBottom: "2rem" }}>
@@ -252,7 +252,7 @@ export default function AdminUsersPage() {
             <Users size={24} />
           </div>
           <div>
-            <div style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", fontWeight: 500, uppercase: "true" }}>
+            <div style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", fontWeight: 500, textTransform: "uppercase" }}>
               TỔNG THÀNH VIÊN
             </div>
             <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--color-text-primary)", marginTop: "0.25rem" }}>
