@@ -310,22 +310,6 @@ export default function Sidebar() {
             </button>
           </div>
         </div>
-
-        {/* AI sparkle decoration */}
-        <div
-          style={{
-            padding: '0.5rem 1.25rem 0.75rem 1.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            fontSize: '0.75rem',
-            color: 'var(--color-text-muted)',
-            flexShrink: 0,
-          }}
-        >
-          <Sparkles size={14} style={{ color: 'var(--color-accent-light)' }} />
-          Powered by Google Gemini
-        </div>
       </aside>
 
       {/* Toggle button when sidebar is collapsed */}

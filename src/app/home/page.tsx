@@ -76,24 +76,6 @@ export default function HomePage() {
             padding: '3rem 0 2rem',
           }}
         >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.375rem 1rem',
-              borderRadius: '9999px',
-              background: 'rgba(124, 58, 237, 0.1)',
-              border: '1px solid rgba(124, 58, 237, 0.2)',
-              fontSize: '0.8125rem',
-              color: 'var(--color-accent-light)',
-              marginBottom: '1.5rem',
-            }}
-          >
-            <Sparkles size={14} />
-            Powered by Google Gemini AI
-          </div>
-
           <h1
             style={{
               fontFamily: 'var(--font-heading)',
