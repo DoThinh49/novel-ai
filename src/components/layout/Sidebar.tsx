@@ -223,11 +223,13 @@ export default function Sidebar() {
         {/* Footer: User profile and Theme toggle */}
         <div
           style={{
-            padding: '1rem 1.25rem',
+            padding: '0.75rem 1.25rem',
             borderTop: '1px solid var(--color-border)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.75rem',
+            gap: '0.5rem',
+            flexShrink: 0,
+            backgroundColor: 'var(--color-bg-sidebar)',
           }}
         >
           {status === 'authenticated' && session?.user && (
@@ -236,7 +238,7 @@ export default function Sidebar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0.5rem 0',
+                padding: '0.25rem 0',
               }}
             >
               <div style={{ overflow: 'hidden', marginRight: '0.5rem' }}>
@@ -276,6 +278,7 @@ export default function Sidebar() {
                   color: '#f87171',
                   border: '1px solid rgba(248, 113, 113, 0.2)',
                   borderRadius: 'var(--radius-sm)',
+                  flexShrink: 0,
                 }}
               >
                 Thoát
@@ -311,12 +314,13 @@ export default function Sidebar() {
         {/* AI sparkle decoration */}
         <div
           style={{
-            padding: '0.75rem 1.25rem',
+            padding: '0.5rem 1.25rem 0.75rem 1.25rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
             fontSize: '0.75rem',
             color: 'var(--color-text-muted)',
+            flexShrink: 0,
           }}
         >
           <Sparkles size={14} style={{ color: 'var(--color-accent-light)' }} />
