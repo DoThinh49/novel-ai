@@ -29,7 +29,6 @@ export default withAuth(
 // Chỉ định các route cần bắt buộc đăng nhập mới được truy cập
 export const config = {
   matcher: [
-    "/",
     "/projects/:path*",
     "/create/:path*",
     "/settings/:path*",

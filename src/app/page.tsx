@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface Particle {
   id: number;
@@ -17,6 +18,7 @@ interface Particle {
 
 export default function VNLandingPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [isEntering, setIsEntering] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
@@ -77,9 +79,13 @@ export default function VNLandingPage() {
 
     // Smooth transition delay before pushing route
     setTimeout(() => {
-      router.push('/login');
+      if (session) {
+        router.push('/home');
+      } else {
+        router.push('/login');
+      }
     }, 900);
-  }, [isEntering, playStartSound, router]);
+  }, [isEntering, playStartSound, router, session]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
