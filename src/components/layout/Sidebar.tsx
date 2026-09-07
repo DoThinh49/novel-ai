@@ -90,7 +90,7 @@ export default function Sidebar() {
           }}
         >
           <Link
-            href="/"
+            href="/home"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -119,9 +119,7 @@ export default function Sidebar() {
                   fontFamily: 'var(--font-heading)',
                   fontWeight: 700,
                   fontSize: '1rem',
-                  background: 'linear-gradient(135deg, var(--color-accent-light), #e879f9)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  color: 'var(--color-text-primary)',
                 }}
               >
                 NovelAI Studio
@@ -295,14 +293,14 @@ export default function Sidebar() {
                 color: 'var(--color-text-muted)',
               }}
             >
-              {theme === 'dark' ? 'Giao diện Tối' : 'Giao diện Sáng'}
+              {theme === 'light' ? 'Giao diện Sáng' : 'Giao diện Tối'}
             </span>
             <button
               className="btn btn-icon btn-ghost"
               onClick={toggleTheme}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === 'light' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
         </div>

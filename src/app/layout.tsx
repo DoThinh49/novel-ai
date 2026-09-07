@@ -24,16 +24,15 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body>
-        {/* Ảnh nền Anime mờ nghệ thuật phía sau */}
+        {/* Ảnh nền Anime phong cảnh nghệ thuật phía sau */}
         <div 
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundImage: "url('/bg-novel.png')",
+            backgroundImage: "url('/bg-anime.jpg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.15,
-            filter: 'blur(3px)',
+            opacity: 0.28,
             pointerEvents: 'none',
             zIndex: -10,
           }}

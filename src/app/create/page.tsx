@@ -383,9 +383,7 @@ export default function CreateProjectPage() {
               fontFamily: 'var(--font-heading)',
               fontSize: '2rem',
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #ffffff, var(--color-text-secondary))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: 'var(--color-text-primary)',
               marginBottom: '0.5rem',
             }}
           >

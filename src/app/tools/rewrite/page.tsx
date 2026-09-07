@@ -58,9 +58,7 @@ export default function RewritePage() {
               fontFamily: 'var(--font-heading)',
               fontSize: '1.75rem',
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #ffffff, var(--color-text-secondary))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: 'var(--color-text-primary)',
               marginBottom: '0.25rem',
             }}
           >
