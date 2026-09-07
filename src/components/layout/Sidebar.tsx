@@ -266,7 +266,10 @@ export default function Sidebar() {
               </div>
               <button
                 className="btn btn-ghost"
-                onClick={() => signOut({ callbackUrl: '/login' })}
+                onClick={async () => {
+                  await signOut({ redirect: false });
+                  window.location.href = '/login';
+                }}
                 style={{
                   fontSize: '0.75rem',
                   padding: '0.25rem 0.5rem',
