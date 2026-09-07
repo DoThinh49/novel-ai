@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import {
   Users,
   Shield,
@@ -15,6 +16,7 @@ import {
   Search,
   CheckCircle,
   AlertTriangle,
+  ArrowLeft,
 } from "lucide-react";
 
 interface UserType {
@@ -179,6 +181,38 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6" style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
       
+      {/* Nút Quay lại */}
+      <div style={{ marginBottom: "1rem" }}>
+        <Link
+          href="/home"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontSize: "0.875rem",
+            fontWeight: 500,
+            color: "var(--color-text-secondary)",
+            padding: "0.5rem 1rem",
+            borderRadius: "var(--radius-md)",
+            border: "1px solid var(--color-border)",
+            backgroundColor: "var(--color-bg-secondary)",
+            textDecoration: "none",
+            transition: "all 0.2s ease"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "var(--color-accent)";
+            e.currentTarget.style.color = "var(--color-accent-light)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--color-border)";
+            e.currentTarget.style.color = "var(--color-text-secondary)";
+          }}
+        >
+          <ArrowLeft size={16} />
+          <span>Quay lại Trang chủ</span>
+        </Link>
+      </div>
+
       {/* Header */}
       <div style={{ marginBottom: "2rem" }}>
         <h1 style={{ fontSize: "1.875rem", fontWeight: 800, color: "var(--color-text-primary)", fontFamily: "var(--font-heading)" }}>
